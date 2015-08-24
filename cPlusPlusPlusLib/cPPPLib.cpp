@@ -12,12 +12,7 @@
 int main()
 {
 	std::cout << "cPlusPlusPlusLib Version " << cPPPLib_H::cPPPLib_V << std::endl << "(C) - Charles Machalow - MIT License" << std::endl;
-	std::cout << "Testing Code..." << std::endl;
 
-	std::string t = "a";
-	std::vector<std::string> tmp = StringFunctions::splitIntoVectorByWhitespace("     ");
-
-	system("PAUSE");
 	return 1;
 }
 
