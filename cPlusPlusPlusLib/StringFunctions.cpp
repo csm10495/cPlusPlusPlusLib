@@ -134,4 +134,14 @@ std::string StringFunctions::toLowerCase(const std::string &original_str)
 	return ret_str;
 }
 
+/// <summary>
+/// Determines if a given std::string only contains whitespace or is empty
+/// </summary>
+/// <param name="original_str">The original_str.</param>
+/// <returns>True if the original_str only contains whitespace</returns>
+bool StringFunctions::isOnlyWhitespace(const std::string & original_str)
+{
+	return original_str.find_first_not_of("\t\n\v\f\r") == std::string::npos;
+}
+
 #endif StringFunctions_CPP
