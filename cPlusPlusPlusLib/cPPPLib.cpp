@@ -14,7 +14,7 @@
 /// </summary>
 /// <param name="original_str">The original_str.</param>
 /// <param name="delim">The delimiter.</param>
-/// <returns></returns>
+/// <returns>std::vector<string> where each item is a string that has been delimited</returns>
 std::vector<std::string> StringFunctions::splitIntoVector(const std::string &original_str, const std::string &delim)
 {
 	std::string working_str = original_str;
@@ -43,7 +43,7 @@ std::vector<std::string> StringFunctions::splitIntoVector(const std::string &ori
 /// Splits the original_str into a std::vector by whitespace.
 /// </summary>
 /// <param name="original_str">The original_str.</param>
-/// <returns></returns>
+/// <returns>std::vector<string> where each item is a string that has been delimited by whitespace</returns>
 std::vector<std::string> StringFunctions::splitIntoVectorByWhitespace(const std::string &original_str)
 {
 	std::string working_str = original_str;
