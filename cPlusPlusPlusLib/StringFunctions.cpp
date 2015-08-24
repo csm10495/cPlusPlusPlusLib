@@ -74,5 +74,64 @@ std::vector<std::string> StringFunctions::splitIntoVectorByWhitespace(const std:
 	return ret_vec;
 }
 
+/// <summary>
+/// Returns a copy of the given string in Title Case
+/// </summary>
+/// <param name="original_str">The original std::string</param>
+/// <returns>Copy of original_str in Title Case</returns>
+std::string StringFunctions::toTitleCase(const std::string &original_str)
+{
+	char last_char = ' ';
+	std::string ret_str = "";
+
+	for (char c : original_str)
+	{
+		if (last_char == ' ')
+		{
+			ret_str += toupper(c);
+		}
+		else
+		{
+			ret_str += c;
+		}
+		last_char = c;
+	}
+
+	return ret_str;
+}
+
+/// <summary>
+/// Returns a copy of the given string in UPPERCASE
+/// </summary>
+/// <param name="original_str">The original std::string</param>
+/// <returns>Copy of original_str in UPPERCASE</returns>
+std::string StringFunctions::toUpperCase(const std::string &original_str)
+{
+	std::string ret_str = "";
+
+	for (char c : original_str)
+	{
+		ret_str += toupper(c);
+	}
+
+	return ret_str;
+}
+
+/// <summary>
+/// Returns a copy of the given string in lowercase
+/// </summary>
+/// <param name="original_str">The original std::string</param>
+/// <returns>Copy of original_str in lowercase</returns>
+std::string StringFunctions::toLowerCase(const std::string &original_str)
+{
+	std::string ret_str = "";
+
+	for (char c : original_str)
+	{
+		ret_str += tolower(c);
+	}
+
+	return ret_str;
+}
 
 #endif StringFunctions_CPP
