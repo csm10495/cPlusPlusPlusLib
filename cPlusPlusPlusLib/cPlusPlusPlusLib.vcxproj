@@ -143,9 +143,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="cPPPLib.h" />
+    <ClInclude Include="StringFunctions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cPPPLib.cpp" />
+    <ClCompile Include="StringFunctions.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
