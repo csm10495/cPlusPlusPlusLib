@@ -18,6 +18,7 @@ class StringFunctions
 {
 public:
 	static std::vector<std::string> splitIntoVector(const std::string &original_str, const std::string &delim);
+	static std::vector<std::string> splitIntoVector(const std::string &original_str, const std::vector<std::string> &delims);
 	static std::vector<std::string> splitIntoVectorByWhitespace(const std::string &original_str);
 
 	static std::string toTitleCase(const std::string &original_str);

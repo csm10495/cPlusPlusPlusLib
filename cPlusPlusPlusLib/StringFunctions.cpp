@@ -40,6 +40,44 @@ std::vector<std::string> StringFunctions::splitIntoVector(const std::string &ori
 }
 
 /// <summary>
+/// Splits the original string into a vector using all delims
+/// </summary>
+/// <param name="original_str">The original_str to split.</param>
+/// <param name="delims">std::vector<std::string> of delimiters.</param>
+/// <returns>std::vector<std::string> of the original_str split by all delims</returns>
+std::vector<std::string> StringFunctions::splitIntoVector(const std::string &original_str, const std::vector<std::string> &delims)
+{
+	std::vector<std::string> working_delims = delims;
+	std::vector<std::string> ret_vec;
+
+	if (working_delims.empty())
+	{
+		return ret_vec;
+	}
+
+	ret_vec = StringFunctions::splitIntoVector(original_str, working_delims.front());
+	working_delims.erase(working_delims.begin());
+
+	while (!working_delims.empty())
+	{
+		std::vector<std::string> tmp_vec;
+		for (const std::string cur : ret_vec)
+		{
+			std::vector<std::string> inner_vec = StringFunctions::splitIntoVector(cur, working_delims.front());
+
+			for (const std::string cur_in : inner_vec)
+			{
+				tmp_vec.push_back(cur_in);
+			}
+		}
+		working_delims.erase(working_delims.begin());
+		ret_vec = tmp_vec;
+	}
+
+	return ret_vec;
+}
+
+/// <summary>
 /// Splits the original_str into a std::vector by whitespace.
 /// </summary>
 /// <param name="original_str">The original_str.</param>
