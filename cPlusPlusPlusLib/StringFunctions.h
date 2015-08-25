@@ -23,6 +23,7 @@ public:
 	static std::string toTitleCase(const std::string &original_str);
 	static std::string toUpperCase(const std::string &original_str);
 	static std::string toLowerCase(const std::string &original_str);
+	static std::string swapCase(const std::string &original_str);
 
 	static bool isOnlyWhitespace(const std::string &original_str);
 

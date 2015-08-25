@@ -135,11 +135,35 @@ std::string StringFunctions::toLowerCase(const std::string &original_str)
 }
 
 /// <summary>
+/// Returns a string where all cases are flipped from original_str
+/// </summary>
+/// <param name="original_str">The original_str.</param>
+/// <returns>original_str with flipped case</returns>
+std::string StringFunctions::swapCase(const std::string &original_str)
+{
+	std::string ret_str = "";
+
+	for (char c : original_str)
+	{
+		if (islower(c))
+		{
+			ret_str += toupper(c);
+		}
+		else
+		{
+			ret_str += tolower(c);
+		}
+	}
+
+	return ret_str;
+}
+
+/// <summary>
 /// Determines if a given std::string only contains whitespace or is empty
 /// </summary>
 /// <param name="original_str">The original_str.</param>
 /// <returns>True if the original_str only contains whitespace</returns>
-bool StringFunctions::isOnlyWhitespace(const std::string & original_str)
+bool StringFunctions::isOnlyWhitespace(const std::string &original_str)
 {
 	return original_str.find_first_not_of("\t\n\v\f\r") == std::string::npos;
 }
