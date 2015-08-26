@@ -197,13 +197,120 @@ std::string StringFunctions::swapCase(const std::string &original_str)
 }
 
 /// <summary>
+/// Slices the specified original_str between x and y using a python-style slice
+/// </summary>
+/// <param name="original_str">The original_str.</param>
+/// <param name="slice_str">slicing info as string ex: "[1:3]"</param>
+/// <returns>std::string slice from original_str. Returns "" on error</returns>
+std::string StringFunctions::slice(const std::string &original_str, const std::string &slice_str)
+{
+	if (slice_str.size() < 3)
+	{
+		std::cerr << "ERROR: Improper slice string " << slice_str << ". Good Examples: \"[1]\", \"[1:2]\", \"[-1, 5]\", \"[:]\"" << std::endl;
+		return "";
+	}
+
+	if (slice_str.front() != '[' || slice_str.back() != ']')
+	{
+		std::cerr << "ERROR: Improper slice string " << slice_str << ". Should start with \"[\" and end with \"]\"" << std::endl;
+		return "";
+	}
+
+	if (slice_str == "[:]")
+	{
+		return std::string(original_str);
+	}
+
+	std::string working_slice = slice_str;
+
+	//remove []s
+	working_slice.erase(0, 1);
+	working_slice.erase(working_slice.size() - 1, 1);
+
+	// look for colon
+	int colon_loc = working_slice.find(":");
+
+
+	// colon not found, try to cast to int
+	// example [1]
+	if (colon_loc == std::string::npos)
+	{
+		int ret_index = std::stoi(working_slice);
+		if ((unsigned int)abs(ret_index) > original_str.size())
+		{
+			std::cerr << "ERROR: Index " << ret_index << " is out of range" << std::endl;
+			return "";
+		}
+		else if (ret_index < 0)
+		{
+			ret_index = original_str.size() - abs(ret_index);
+		}
+
+		return original_str.substr(ret_index, 1);
+	}
+	else
+	{
+		int l_index = 0;
+		int r_index = 0;
+		try
+		{
+			l_index = std::stoi(working_slice.substr(0, colon_loc));
+		}
+		catch (const std::invalid_argument &ia)
+		{
+			ia.what();
+
+			//something wrong with l_index
+			//it might be empty
+			if (StringFunctions::isOnlyWhitespace(working_slice.substr(0, colon_loc)))
+			{
+				l_index = 0;
+			}
+		}
+
+		try
+		{
+			r_index = std::stoi(working_slice.substr(colon_loc + 1));
+		}
+		catch (const std::invalid_argument &ia)
+		{
+			ia.what();
+
+			//something wrong with r_index
+			//it might be empty
+			if (StringFunctions::isOnlyWhitespace(working_slice.substr(colon_loc + 1)))
+			{
+				r_index = original_str.size();
+			}
+		}
+
+		if (l_index < 0)
+		{
+			l_index = std::max((int)original_str.size() - abs(l_index), (int)0);
+		}
+
+		if (r_index < 0)
+		{
+			r_index = original_str.size() - abs(r_index);
+		}
+
+		if (l_index == r_index || l_index >= r_index || (unsigned int) l_index > original_str.size())
+		{
+			return "";
+		}
+
+		return original_str.substr(l_index, (r_index - l_index));
+	}
+}
+
+/// <summary>
 /// Determines if a given std::string only contains whitespace or is empty
 /// </summary>
 /// <param name="original_str">The original_str.</param>
 /// <returns>True if the original_str only contains whitespace</returns>
 bool StringFunctions::isOnlyWhitespace(const std::string &original_str)
 {
-	return original_str.find_first_not_of("\t\n\v\f\r") == std::string::npos;
+	return original_str.find_first_not_of("\t\n\v\f\r ") == std::string::npos;
 }
 
 #endif StringFunctions_CPP

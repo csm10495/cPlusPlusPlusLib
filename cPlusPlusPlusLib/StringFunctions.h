@@ -7,9 +7,11 @@
 #ifndef StringFunctions_H
 #define StringFunctions_H
 
+#include <algorithm>
+#include <iostream>
+#include <stdexcept>
 #include <string>
 #include <vector>
-#include <iostream>
 
 /// <summary>
 /// Class for functions relating to std::strings
@@ -25,6 +27,7 @@ public:
 	static std::string toUpperCase(const std::string &original_str);
 	static std::string toLowerCase(const std::string &original_str);
 	static std::string swapCase(const std::string &original_str);
+	static std::string slice(const std::string &original_str, const std::string &slice_str);
 
 	static bool isOnlyWhitespace(const std::string &original_str);
 
