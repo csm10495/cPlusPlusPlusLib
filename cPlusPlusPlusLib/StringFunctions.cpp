@@ -12,7 +12,7 @@
 /// <summary>
 /// Splits the original_str into a std::vector by delimiter
 /// </summary>
-/// <param name="original_str">The original_str.</param>
+/// <param name="original_str">The original std::string</param>
 /// <param name="delim">The delimiter.</param>
 /// <returns>std::vector<string> where each item is a string that has been delimited</returns>
 std::vector<std::string> StringFunctions::splitIntoVector(const std::string &original_str, const std::string &delim)
@@ -42,7 +42,7 @@ std::vector<std::string> StringFunctions::splitIntoVector(const std::string &ori
 /// <summary>
 /// Splits the original string into a vector using all delims
 /// </summary>
-/// <param name="original_str">The original_str to split.</param>
+/// <param name="original_str">The original std::string to split.</param>
 /// <param name="delims">std::vector<std::string> of delimiters.</param>
 /// <returns>std::vector<std::string> of the original_str split by all delims</returns>
 std::vector<std::string> StringFunctions::splitIntoVector(const std::string &original_str, const std::vector<std::string> &delims)
@@ -80,7 +80,7 @@ std::vector<std::string> StringFunctions::splitIntoVector(const std::string &ori
 /// <summary>
 /// Splits the original_str into a std::vector by whitespace.
 /// </summary>
-/// <param name="original_str">The original_str.</param>
+/// <param name="original_str">The original std::string</param>
 /// <returns>std::vector<string> where each item is a string that has been delimited by whitespace</returns>
 std::vector<std::string> StringFunctions::splitIntoVectorByWhitespace(const std::string &original_str)
 {
@@ -175,7 +175,7 @@ std::string StringFunctions::toLowerCase(const std::string &original_str)
 /// <summary>
 /// Returns a string where all cases are flipped from original_str
 /// </summary>
-/// <param name="original_str">The original_str.</param>
+/// <param name="original_str">The original std::string</param>
 /// <returns>original_str with flipped case</returns>
 std::string StringFunctions::swapCase(const std::string &original_str)
 {
@@ -304,9 +304,66 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 }
 
 /// <summary>
+/// Performs a left and right trim on the specified original_str.
+/// </summary>
+/// <param name="original_str">The original std::string</param>
+/// <param name="removal_chars">Chars to be trimmed (Defaults to all whitespace)</param>
+/// <returns>A copy of the original std::string without leading and trailing whitespace</returns>
+std::string StringFunctions::trim(const std::string & original_str, const std::string &removal_chars)
+{
+	std::string working_str = original_str;
+	int rtrim_loc = working_str.find_last_not_of(removal_chars) + 1;
+	int ltrim_loc = working_str.find_first_not_of(removal_chars);
+
+	if (ltrim_loc == std::string::npos)
+	{
+		return "";
+	}
+	else
+	{
+		return working_str.erase(rtrim_loc).substr(ltrim_loc);
+	}
+}
+
+/// <summary>
+/// Performs a left trim on the specified original_str.
+/// </summary>
+/// <param name="original_str">The original std::string</param>
+/// <param name="removal_chars">Chars to be trimmed (Defaults to all whitespace)</param>
+/// <returns>A copy of the original std::string without leading whitespace</returns>
+std::string StringFunctions::ltrim(const std::string & original_str, const std::string &removal_chars)
+{
+	std::string working_str = original_str;
+	int ltrim_loc = working_str.find_first_not_of(removal_chars);
+
+	if (ltrim_loc == std::string::npos)
+	{
+		return "";
+	}
+	else
+	{
+		return working_str.substr(ltrim_loc);
+	}
+}
+
+/// <summary>
+/// Performs a right trim on the specified original_str.
+/// </summary>
+/// <param name="original_str">The original std::string</param>
+/// <param name="removal_chars">Chars to be trimmed (Defaults to all whitespace)</param>
+/// <returns>A copy of the original std::string without trailing whitespace</returns>
+std::string StringFunctions::rtrim(const std::string & original_str, const std::string &removal_chars)
+{
+	std::string working_str = original_str;
+	int rtrim_loc = working_str.find_last_not_of(removal_chars) + 1;
+
+	return working_str.erase(rtrim_loc);
+}
+
+/// <summary>
 /// Determines if a given std::string only contains whitespace or is empty
 /// </summary>
-/// <param name="original_str">The original_str.</param>
+/// <param name="original_str">The original std::string</param>
 /// <returns>True if the original_str only contains whitespace</returns>
 bool StringFunctions::isOnlyWhitespace(const std::string &original_str)
 {
