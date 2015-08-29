@@ -61,11 +61,11 @@ std::vector<std::string> StringFunctions::splitIntoVector(const std::string &ori
 	while (!working_delims.empty())
 	{
 		std::vector<std::string> tmp_vec;
-		for (const std::string cur : ret_vec)
+		for (const std::string &cur : ret_vec)
 		{
 			std::vector<std::string> inner_vec = StringFunctions::splitIntoVector(cur, working_delims.front());
 
-			for (const std::string cur_in : inner_vec)
+			for (const std::string &cur_in : inner_vec)
 			{
 				tmp_vec.push_back(cur_in);
 			}
