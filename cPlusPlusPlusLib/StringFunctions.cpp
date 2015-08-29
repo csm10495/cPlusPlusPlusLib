@@ -309,7 +309,7 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 /// <param name="original_str">The original std::string</param>
 /// <param name="removal_chars">Chars to be trimmed (Defaults to all whitespace)</param>
 /// <returns>A copy of the original std::string without leading and trailing whitespace</returns>
-std::string StringFunctions::trim(const std::string & original_str, const std::string &removal_chars)
+std::string StringFunctions::trim(const std::string &original_str, const std::string &removal_chars)
 {
 	std::string working_str = original_str;
 	int rtrim_loc = working_str.find_last_not_of(removal_chars) + 1;
@@ -331,7 +331,7 @@ std::string StringFunctions::trim(const std::string & original_str, const std::s
 /// <param name="original_str">The original std::string</param>
 /// <param name="removal_chars">Chars to be trimmed (Defaults to all whitespace)</param>
 /// <returns>A copy of the original std::string without leading whitespace</returns>
-std::string StringFunctions::ltrim(const std::string & original_str, const std::string &removal_chars)
+std::string StringFunctions::ltrim(const std::string &original_str, const std::string &removal_chars)
 {
 	std::string working_str = original_str;
 	int ltrim_loc = working_str.find_first_not_of(removal_chars);
@@ -352,7 +352,7 @@ std::string StringFunctions::ltrim(const std::string & original_str, const std::
 /// <param name="original_str">The original std::string</param>
 /// <param name="removal_chars">Chars to be trimmed (Defaults to all whitespace)</param>
 /// <returns>A copy of the original std::string without trailing whitespace</returns>
-std::string StringFunctions::rtrim(const std::string & original_str, const std::string &removal_chars)
+std::string StringFunctions::rtrim(const std::string &original_str, const std::string &removal_chars)
 {
 	std::string working_str = original_str;
 	int rtrim_loc = working_str.find_last_not_of(removal_chars) + 1;
@@ -368,6 +368,54 @@ std::string StringFunctions::rtrim(const std::string & original_str, const std::
 bool StringFunctions::isOnlyWhitespace(const std::string &original_str)
 {
 	return original_str.find_first_not_of("\t\n\v\f\r ") == std::string::npos;
+}
+
+/// <summary>
+/// Determines if the original std::string starts with the check std::string
+/// </summary>
+/// <param name="original_str">The original std::string.</param>
+/// <param name="check">The std::string that will be compared against the start of the original strd::string</param>
+/// <param name="case_matters">If true (default), case matters, otherwise all comparisons are done after taking both std::strings toLowerCase()</param>
+/// <returns>True if the original std::string starts with the check std::string</returns>
+bool StringFunctions::startsWith(const std::string &original_str, const std::string &check, const bool &case_matters)
+{
+	if (original_str.size() < check.size())
+		return false;
+
+	std::string working_str = original_str;
+	std::string working_check = check;
+
+	if (!case_matters)
+	{
+		working_check = StringFunctions::toLowerCase(working_check);
+		working_str = StringFunctions::toLowerCase(working_str);
+	}
+
+	return (strncmp(working_str.c_str(), working_check.c_str(), working_check.size()) == 0);
+}
+
+/// <summary>
+/// Determines if the original std::string ends with the check std::string
+/// </summary>
+/// <param name="original_str">The original std::string.</param>
+/// <param name="check">The std::string that will be compared against the end of the original strd::string</param>
+/// <param name="case_matters">If true (default), case matters, otherwise all comparisons are done after taking both std::strings toLowerCase()</param>
+/// <returns>True if the original std::string ends with the check std::string</returns>
+bool StringFunctions::endsWith(const std::string &original_str, const std::string &check, const bool &case_matters)
+{
+	if (original_str.size() < check.size())
+		return false;
+
+	std::string working_str = original_str;
+	std::string working_check = check;
+
+	if (!case_matters)
+	{
+		working_check = StringFunctions::toLowerCase(working_check);
+		working_str = StringFunctions::toLowerCase(working_str);
+	}
+
+	return (strncmp(working_str.c_str() + (working_str.size() - working_check.size()), working_check.c_str(), working_check.size()) == 0);
 }
 
 #endif StringFunctions_CPP

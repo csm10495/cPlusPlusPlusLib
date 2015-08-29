@@ -38,6 +38,8 @@ public:
 	static std::string rstrip(const std::string &original_str, const std::string &removal_chars = "\t\n\v\f\r ") { return rtrim(original_str, removal_chars); };
 
 	static bool isOnlyWhitespace(const std::string &original_str);
+	static bool startsWith(const std::string &original_str, const std::string &check, const bool &case_matters = true);
+	static bool endsWith(const std::string &original_str, const std::string &check, const bool &case_matters = true);
 
 };
 
