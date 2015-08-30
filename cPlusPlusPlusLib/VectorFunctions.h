@@ -17,7 +17,6 @@
 class VectorFunctions
 {
 public:
-	
 	/// <summary>
 	/// Zips the two given std::vectors into a std::vector<std::pair<T1, T2>>
 	/// Starts from the start of the std::vectors
@@ -68,6 +67,26 @@ public:
 		{
 			ret_vec.push_back(std::make_pair(vec1[i], vec2[j]));
 			j--;
+		}
+
+		return ret_vec;
+	}
+
+	/// <summary>
+	/// Flattens the (2 leveled) original std::vector
+	/// </summary>
+	/// <param name="original_vec">The original std::vector<std::vector<T>></param>
+	/// <returns>A flattened std::vector<T></returns>
+	template <typename T> static std::vector<T> flatten(const std::vector<std::vector<T>> &original_vec)
+	{
+		std::vector<T> ret_vec;
+
+		for (const std::vector<T> &outer_item : original_vec)
+		{
+			for (const T &inner_item : outer_item)
+			{
+				ret_vec.push_back(inner_item);
+			}
 		}
 
 		return ret_vec;
