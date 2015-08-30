@@ -441,6 +441,29 @@ std::string StringFunctions::rjust(const std::string &original_str, const unsign
 }
 
 /// <summary>
+/// Takes all the values in std::vector<std::string> vec and concatenates them with std::string sep between values
+/// </summary>
+/// <param name="sep">The separating std::string</param>
+/// <param name="vec">The std::vector<std::string> of values to concatenate</param>
+/// <returns>An std::string of all of vec's values concatenated with sep in between</returns>
+std::string StringFunctions::join(const std::string &sep, const std::vector<std::string> &vec)
+{
+	std::string working_str = "";
+
+	for (unsigned int i = 0; i < vec.size(); i++)
+	{
+		working_str += vec[i];
+		
+		if (i != vec.size() - 1)
+		{
+			working_str += sep;
+		}
+	}
+
+	return working_str;
+}
+
+/// <summary>
 /// Determines if a given std::string only contains whitespace or is empty
 /// </summary>
 /// <param name="original_str">The original std::string</param>
