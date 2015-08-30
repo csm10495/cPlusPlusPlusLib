@@ -13,6 +13,10 @@
 #include <string>
 #include <vector>
 
+#define strip trim
+#define lstrip ltrim
+#define rstrip rtrim
+
  /// <summary>
  /// Class for functions relating to std::strings
  /// </summary>
@@ -22,6 +26,7 @@ public:
 	static std::vector<std::string> splitIntoVector(const std::string &original_str, const std::string &delim);
 	static std::vector<std::string> splitIntoVector(const std::string &original_str, const std::vector<std::string> &delims);
 	static std::vector<std::string> splitIntoVectorByWhitespace(const std::string &original_str);
+	static std::vector<std::string> partitionIntoVector(const std::string &original_str, const std::string &sep);
 
 	static std::string toTitleCase(const std::string &original_str);
 	static std::string toUpperCase(const std::string &original_str);
@@ -32,15 +37,9 @@ public:
 	static std::string ltrim(const std::string &original_str, const std::string &removal_chars = "\t\n\v\f\r ");
 	static std::string rtrim(const std::string &original_str, const std::string &removal_chars = "\t\n\v\f\r ");
 
-	/* Strip commands are just aliases for the Trims */
-	static std::string strip(const std::string &original_str, const std::string &removal_chars = "\t\n\v\f\r ") { return trim(original_str, removal_chars); };
-	static std::string lstrip(const std::string &original_str, const std::string &removal_chars = "\t\n\v\f\r ") { return ltrim(original_str, removal_chars); };
-	static std::string rstrip(const std::string &original_str, const std::string &removal_chars = "\t\n\v\f\r ") { return rtrim(original_str, removal_chars); };
-
 	static bool isOnlyWhitespace(const std::string &original_str);
 	static bool startsWith(const std::string &original_str, const std::string &check, const bool &case_matters = true);
 	static bool endsWith(const std::string &original_str, const std::string &check, const bool &case_matters = true);
-
 };
 
 #endif StringFunctions_H
