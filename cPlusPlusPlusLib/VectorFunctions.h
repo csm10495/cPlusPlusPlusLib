@@ -91,6 +91,23 @@ public:
 
 		return ret_vec;
 	}
+
+	/// <summary>
+	/// Reverses the given std::vector
+	/// </summary>
+	/// <param name="original_vec">The given std::vector</param>
+	/// <returns>A reverse of the given std::vector</returns>
+	template <typename T> static std::vector<T> reverse(const std::vector<T> &original_vec)
+	{
+		std::vector<T> ret_vec;
+
+		for (typename std::vector<T>::const_reverse_iterator itr = original_vec.crbegin(); itr != original_vec.crend(); itr++)
+		{
+			ret_vec.push_back(*itr);
+		}
+
+		return ret_vec;
+	}
 };
 
 #endif VectorFunctions_H
