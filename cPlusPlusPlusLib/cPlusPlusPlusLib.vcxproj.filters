@@ -21,12 +21,18 @@
     <ClInclude Include="StringFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UtilityFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cPPPLib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StringFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilityFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

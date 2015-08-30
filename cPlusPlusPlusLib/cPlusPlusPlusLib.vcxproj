@@ -144,10 +144,12 @@
   <ItemGroup>
     <ClInclude Include="cPPPLib.h" />
     <ClInclude Include="StringFunctions.h" />
+    <ClInclude Include="UtilityFunctions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cPPPLib.cpp" />
     <ClCompile Include="StringFunctions.cpp" />
+    <ClCompile Include="UtilityFunctions.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

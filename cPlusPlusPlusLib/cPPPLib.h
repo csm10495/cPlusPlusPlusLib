@@ -8,6 +8,7 @@
 #define cPPPLib_H
 
 #include "StringFunctions.h"
+#include "UtilityFunctions.h"
 
 static const char * cPPPLib_V = ".1Alpha";
 
