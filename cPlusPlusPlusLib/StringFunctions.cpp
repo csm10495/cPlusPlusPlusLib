@@ -503,7 +503,7 @@ std::string StringFunctions::join(const std::string &sep, const std::vector<std:
 std::string StringFunctions::reverse(const std::string &original_str)
 {
 	std::string working_str = "";
-	for (std::string::const_reverse_iterator itr = original_str.rbegin(); itr != original_str.rend(); itr++)
+	for (std::string::const_reverse_iterator itr = original_str.crbegin(); itr != original_str.crend(); itr++)
 	{
 		working_str += *itr;
 	}
