@@ -22,7 +22,7 @@ std::vector<std::string> StringFunctions::splitIntoVector(const std::string &ori
 
 	while (!working_str.empty())
 	{
-		unsigned int loc = working_str.find(delim);
+		size_t loc = working_str.find(delim);
 		// found in string
 		if (loc != std::string::npos)
 		{
@@ -89,7 +89,7 @@ std::vector<std::string> StringFunctions::splitIntoVectorByWhitespace(const std:
 
 	while (!working_str.empty())
 	{
-		unsigned int loc = working_str.find(" ");
+		size_t loc = working_str.find(" ");
 		// found in string
 		if (loc != std::string::npos)
 		{
@@ -128,7 +128,7 @@ std::vector<std::string> StringFunctions::splitIntoVectorByWhitespace(const std:
 /// </returns>
 std::vector<std::string> StringFunctions::partitionIntoVector(const std::string &original_str, const std::string &sep)
 {
-	int sep_loc = original_str.find(sep);
+	size_t sep_loc = original_str.find(sep);
 
 	if (sep.size() > original_str.size() || sep_loc == std::string::npos)
 	{
@@ -160,7 +160,7 @@ std::vector<std::string> StringFunctions::partitionIntoVector(const std::string 
 /// </returns>
 std::vector<std::string> StringFunctions::rpartitionIntoVector(const std::string &original_str, const std::string &sep)
 {
-	int sep_loc = original_str.rfind(sep);
+	size_t sep_loc = original_str.rfind(sep);
 
 	if (sep.size() > original_str.size() || sep_loc == std::string::npos)
 	{
@@ -292,7 +292,7 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 	working_slice.erase(working_slice.size() - 1, 1);
 
 	// look for colon
-	int colon_loc = working_slice.find(":");
+	size_t colon_loc = working_slice.find(":");
 
 
 	// colon not found, try to cast to int
@@ -307,7 +307,7 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 		}
 		else if (ret_index < 0)
 		{
-			ret_index = original_str.size() - abs(ret_index);
+			ret_index = static_cast<int>(original_str.size() - abs(ret_index));
 		}
 
 		return original_str.substr(ret_index, 1);
@@ -344,7 +344,7 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 			//it might be empty
 			if (StringFunctions::isOnlyWhitespace(working_slice.substr(colon_loc + 1)))
 			{
-				r_index = original_str.size();
+				r_index = static_cast<int>(original_str.size());
 			}
 		}
 
@@ -355,7 +355,7 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 
 		if (r_index < 0)
 		{
-			r_index = original_str.size() - abs(r_index);
+			r_index = static_cast<int>(original_str.size() - abs(r_index));
 		}
 
 		if (l_index == r_index || l_index >= r_index || static_cast<unsigned int>(l_index) > original_str.size())
@@ -376,8 +376,8 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 std::string StringFunctions::trim(const std::string &original_str, const std::string &removal_chars)
 {
 	std::string working_str = original_str;
-	int rtrim_loc = working_str.find_last_not_of(removal_chars) + 1;
-	int ltrim_loc = working_str.find_first_not_of(removal_chars);
+	size_t rtrim_loc = working_str.find_last_not_of(removal_chars) + 1;
+	size_t ltrim_loc = working_str.find_first_not_of(removal_chars);
 
 	if (ltrim_loc == std::string::npos)
 	{
@@ -398,7 +398,7 @@ std::string StringFunctions::trim(const std::string &original_str, const std::st
 std::string StringFunctions::ltrim(const std::string &original_str, const std::string &removal_chars)
 {
 	std::string working_str = original_str;
-	int ltrim_loc = working_str.find_first_not_of(removal_chars);
+	size_t ltrim_loc = working_str.find_first_not_of(removal_chars);
 
 	if (ltrim_loc == std::string::npos)
 	{
@@ -419,7 +419,7 @@ std::string StringFunctions::ltrim(const std::string &original_str, const std::s
 std::string StringFunctions::rtrim(const std::string &original_str, const std::string &removal_chars)
 {
 	std::string working_str = original_str;
-	int rtrim_loc = working_str.find_last_not_of(removal_chars) + 1;
+	size_t rtrim_loc = working_str.find_last_not_of(removal_chars) + 1;
 
 	return working_str.erase(rtrim_loc);
 }
