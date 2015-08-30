@@ -300,7 +300,7 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 	if (colon_loc == std::string::npos)
 	{
 		int ret_index = std::stoi(working_slice);
-		if ((unsigned int)abs(ret_index) > original_str.size())
+		if (static_cast<unsigned int>(abs(ret_index)) > original_str.size())
 		{
 			std::cerr << "ERROR: Index " << ret_index << " is out of range" << std::endl;
 			return "";
@@ -350,7 +350,7 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 
 		if (l_index < 0)
 		{
-			l_index = std::max((int)original_str.size() - abs(l_index), (int)0);
+			l_index = std::max(static_cast<int>(original_str.size() - abs(l_index)), static_cast<int>(0));
 		}
 
 		if (r_index < 0)
@@ -358,7 +358,7 @@ std::string StringFunctions::slice(const std::string &original_str, const std::s
 			r_index = original_str.size() - abs(r_index);
 		}
 
-		if (l_index == r_index || l_index >= r_index || (unsigned int)l_index > original_str.size())
+		if (l_index == r_index || l_index >= r_index || static_cast<unsigned int>(l_index) > original_str.size())
 		{
 			return "";
 		}
@@ -485,7 +485,7 @@ std::string StringFunctions::join(const std::string &sep, const std::vector<std:
 	for (unsigned int i = 0; i < vec.size(); i++)
 	{
 		working_str += vec[i];
-		
+
 		if (i != vec.size() - 1)
 		{
 			working_str += sep;
