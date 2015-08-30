@@ -145,6 +145,38 @@ std::vector<std::string> StringFunctions::partitionIntoVector(const std::string 
 }
 
 /// <summary>
+/// Partitions the original std::string into a std::vector, starting from the end (right)<std::string>.
+/// </summary>
+/// <param name="original_str">The original std::string</param>
+/// <param name="sep">The separator std::string</param>
+/// <returns>
+/// A std::vector<std::string> with 3 elements
+/// [0] -> head (before separator if found)
+/// [1] -> separator (separator if found)
+/// [2] -> tail (after separator if found)
+/// If the separator is not in the original std::string, there will still be 3 elements in the
+/// return std::vector<std::string>, however the head will contain a copy of the original 
+/// std::string and the other 2 elements will be empty std::strings.
+/// </returns>
+std::vector<std::string> StringFunctions::rpartitionIntoVector(const std::string &original_str, const std::string &sep)
+{
+	int sep_loc = original_str.rfind(sep);
+
+	if (sep.size() > original_str.size() || sep_loc == std::string::npos)
+	{
+		std::vector<std::string> ret_vec = { original_str, "", "" };
+		return ret_vec;
+	}
+
+	std::vector<std::string> ret_vec;
+	ret_vec.push_back(original_str.substr(0, sep_loc));
+	ret_vec.push_back(sep);
+	ret_vec.push_back(original_str.substr(sep_loc + sep.size()));
+
+	return ret_vec;
+}
+
+/// <summary>
 /// Returns a copy of the given string in Title Case
 /// </summary>
 /// <param name="original_str">The original std::string</param>
