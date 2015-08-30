@@ -393,6 +393,54 @@ std::string StringFunctions::rtrim(const std::string &original_str, const std::s
 }
 
 /// <summary>
+/// Justifes the original std::string to the left by adding chars of fill_char to the right of returning std::string
+/// </summary>
+/// <param name="original_str">The original std::string</param>
+/// <param name="expected_length">The length of the return std::string (unless this parameter is less than the original std::string's length</param>
+/// <param name="fill_char">A char to pad (the right of) the returning std::string with</param>
+/// <returns>A std::string of size expected_length or larger if the original std::string was longer</returns>
+std::string StringFunctions::ljust(const std::string &original_str, const unsigned int &expected_length, const char &fill_char)
+{
+	if (original_str.size() > expected_length)
+	{
+		return original_str;
+	}
+
+	std::string working_str = original_str;
+
+	while (working_str.size() != expected_length)
+	{
+		working_str = working_str + fill_char;
+	}
+
+	return working_str;
+}
+
+/// <summary>
+/// Justifes the original std::string to the right by adding chars of fill_char to the left of the returning std::string
+/// </summary>
+/// <param name="original_str">The original std::string</param>
+/// <param name="expected_length">The length of the return std::string (unless this parameter is less than the original std::string's length</param>
+/// <param name="fill_char">A char to pad (the right of) the returning std::string with</param>
+/// <returns>A std::string of size expected_length or larger if the original std::string was longer</returns>
+std::string StringFunctions::rjust(const std::string &original_str, const unsigned int &expected_length, const char &fill_char)
+{
+	if (original_str.size() > expected_length)
+	{
+		return original_str;
+	}
+
+	std::string working_str = original_str;
+
+	while (working_str.size() != expected_length)
+	{
+		working_str = fill_char + working_str;
+	}
+
+	return working_str;
+}
+
+/// <summary>
 /// Determines if a given std::string only contains whitespace or is empty
 /// </summary>
 /// <param name="original_str">The original std::string</param>
