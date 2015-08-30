@@ -9,6 +9,7 @@
 
 #include "StringFunctions.h"
 #include "UtilityFunctions.h"
+#include "VectorFunctions.h"
 
 static const char * cPPPLib_V = ".1Alpha";
 

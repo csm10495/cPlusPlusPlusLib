@@ -145,6 +145,7 @@
     <ClInclude Include="cPPPLib.h" />
     <ClInclude Include="StringFunctions.h" />
     <ClInclude Include="UtilityFunctions.h" />
+    <ClInclude Include="VectorFunctions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cPPPLib.cpp" />
