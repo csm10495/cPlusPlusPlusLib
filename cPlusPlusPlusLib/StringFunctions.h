@@ -40,6 +40,7 @@ public:
 	static std::string ljust(const std::string &original_str, const unsigned int &expected_length, const char &fill_char = ' ');
 	static std::string rjust(const std::string &original_str, const unsigned int &expected_length, const char &fill_char = ' ');
 	static std::string join(const std::string &sep, const std::vector<std::string> &vec);
+	static std::string reverse(const std::string &original_str);
 
 	static bool isOnlyWhitespace(const std::string &original_str);
 	static bool startsWith(const std::string &original_str, const std::string &check, const bool &case_matters = true);

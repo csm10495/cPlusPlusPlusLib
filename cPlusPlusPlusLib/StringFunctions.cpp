@@ -496,6 +496,22 @@ std::string StringFunctions::join(const std::string &sep, const std::vector<std:
 }
 
 /// <summary>
+/// Reverses the given std::string.
+/// </summary>
+/// <param name="original_str">The given std::string</param>
+/// <returns>A reverse std::string of the original std::string</returns>
+std::string StringFunctions::reverse(const std::string &original_str)
+{
+	std::string working_str = "";
+	for (std::string::const_reverse_iterator itr = original_str.rbegin(); itr != original_str.rend(); itr++)
+	{
+		working_str += *itr;
+	}
+	
+	return working_str;
+}
+
+/// <summary>
 /// Determines if a given std::string only contains whitespace or is empty
 /// </summary>
 /// <param name="original_str">The original std::string</param>
