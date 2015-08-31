@@ -37,4 +37,76 @@ bool UtilityFunctions::isLittleEndian()
 	return u.c[0] == 0;
 }
 
+/// <summary>
+/// Gets the free space in bytes accessable at the given path.
+/// Windows: Uses GetDiskFreeSpaceExA() to get free space information
+/// Linux: Uses statfs() to get free space information
+/// </summary>
+/// <param name="space">A uint64_t, passed by reference. On success, will get the available space in bytes</param>
+/// <param name="path">A path to use to check for available space</param>
+/// <returns>True on success, On failure will do a perror(...) call then return false</returns>
+bool UtilityFunctions::getFreeSpaceInBytes(uint64_t &space, const std::string &path)
+{
+#ifdef _WIN32
+	std::string loc = "";
+
+	// Assume a drive letter only was given
+	if (path.size() == 1)
+	{
+		loc = path + ":\\";
+	}
+	else
+	{
+		loc = path;
+	}
+
+	if (!GetDiskFreeSpaceExA(loc.c_str(), NULL, NULL, (PULARGE_INTEGER)&space))
+	{
+		UtilityFunctions::cperror("GetDiskFreeSpaceExA() failed");
+		return false;
+	}
+
+	return true;
+#endif //_WIN32
+#ifdef __linux
+	struct statfs buf;
+
+	if (statfs(path.c_str(), &buf) != 0)
+	{
+		perror("statfs() failed");
+		return false;
+	}
+	space = static_cast<uint64_t>(buf.f_bsize) * static_cast<uint64_t>(buf.f_blocks);
+
+	return true;
+#endif //__linux
+}
+
+/// <summary>
+/// Provide linux-esque perror-esque functionality
+/// Windows: GetLastError(), FormatMessageA() are used to get error text
+/// Linux: Just calls perror(text)
+/// </summary>
+/// <param name="text">The text placed at the start of the error printing</param>
+void UtilityFunctions::cperror(const char * text)
+{
+#ifdef _WIN32
+	LPSTR message_buf = nullptr;
+
+	// The FORMAT_MESSAGE_ALLOCATE_BUFFER flag uses LocalAlloc to make the message_buf
+	// Which is why there is a LocalFree later to free the dynamic allocation
+	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&message_buf, 0, NULL);
+
+	std::string message(message_buf, size);
+
+	LocalFree(message_buf);
+
+	std::cerr << text << ": " << message;
+#endif //_WIN32
+#ifdef __linux
+	perror(text);
+#endif //__linux
+}
+
 #endif UtilityFunctions_CPP
