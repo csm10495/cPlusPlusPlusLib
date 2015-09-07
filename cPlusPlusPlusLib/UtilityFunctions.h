@@ -32,7 +32,7 @@ public:
 	static bool isLittleEndian();
 	static bool getFreeSpaceInBytes(uint64_t &space, const std::string &path);
 
-	static void cperror(const char *text);
+	static void cperror(const char *text, const bool &use_perror=true);
 };
 
 #endif UtilityFunctions_H
