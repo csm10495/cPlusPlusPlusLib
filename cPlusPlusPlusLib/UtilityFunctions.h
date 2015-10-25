@@ -7,6 +7,7 @@
 #ifndef UtilityFunctions_H
 #define UtilityFunctions_H
 
+#include <algorithm>
 #include <cstdint>
 #include <cstdio>
 #include <iostream>
@@ -35,7 +36,8 @@ public:
 
 	static void cperror(const char *text, const bool &use_perror=true);
 
-	static std::vector<uint8_t> UtilityFunctions::numericToBytes(const uint64_t &numeric);
+	static std::vector<uint8_t>numericToLEBytes(const uint64_t &numeric);
+	static std::vector<uint8_t>numericToBEBytes(const uint64_t &numeric);
 };
 
 #endif UtilityFunctions_H

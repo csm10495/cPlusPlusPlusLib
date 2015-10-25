@@ -118,21 +118,51 @@ void UtilityFunctions::cperror(const char * text, const bool &use_perror)
 }
 
 /// <summary>
-/// Numerics of max 64 bits to a vector<uint8_t> of bytes
+/// Numerics of max 64 bits to a std::vector<uint8_t> of bytes
 /// </summary>
 /// <param name="numeric">The numeric as a uint64_t</param>
-/// <returns>vector<uint8_t> of bytes</returns>
-std::vector<uint8_t> UtilityFunctions::numericToBytes(const uint64_t &numeric)
+/// <returns>std::vector<uint8_t> of bytes in Little Endian form</returns>
+std::vector<uint8_t> UtilityFunctions::numericToLEBytes(const uint64_t &numeric)
 {
 	uint64_t myNumeric = numeric;
+	unsigned int numBytes = 0;
+
+	if (numeric <= 0xFF)
+	{
+		numBytes = sizeof(uint8_t);
+	}
+	else if (numeric > 0xFF && numeric <= 0xFFFF)
+	{
+		numBytes = sizeof(uint16_t);
+	}
+	else if (numeric > 0xFFFF && numeric <= 0xFFFFFFFF)
+	{
+		numBytes = sizeof(uint32_t);
+	}
+	else
+	{
+		numBytes = sizeof(uint64_t);
+	}
 	std::vector<unsigned char> bytes;
 
-	for (unsigned int i = 0; i < sizeof(myNumeric); i++)
+	for (unsigned int i = 0; i < numBytes; i++)
 	{
 		bytes.push_back(myNumeric & 0xFF);
 		myNumeric = myNumeric >> 8;
 	}
 
+	return bytes;
+}
+
+/// <summary>
+/// Numerics of max 64 bits to a std::vector<uint8_t> of bytes
+/// </summary>
+/// <param name="numeric">The numeric as a uint64_t</param>
+/// <returns>std::vector<uint8_t> of bytes in Big Endian form</returns>
+std::vector<uint8_t> UtilityFunctions::numericToBEBytes(const uint64_t &numeric)
+{
+	std::vector<uint8_t> bytes = numericToLEBytes(numeric);
+	std::reverse(bytes.begin(), bytes.end());
 	return bytes;
 }
 
