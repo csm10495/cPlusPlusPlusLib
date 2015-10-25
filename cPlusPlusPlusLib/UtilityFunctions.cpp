@@ -62,7 +62,7 @@ bool UtilityFunctions::getFreeSpaceInBytes(uint64_t &space, const std::string &p
 
 	if (!GetDiskFreeSpaceExA(loc.c_str(), NULL, NULL, (PULARGE_INTEGER)&space))
 	{
-		UtilityFunctions::cperror("GetDiskFreeSpaceExA() failed");
+		UtilityFunctions::cperror("GetDiskFreeSpaceExA() failed", false);
 		return false;
 	}
 
@@ -84,25 +84,33 @@ bool UtilityFunctions::getFreeSpaceInBytes(uint64_t &space, const std::string &p
 
 /// <summary>
 /// Provide linux-esque perror-esque functionality
-/// Windows: GetLastError(), FormatMessageA() are used to get error text
+/// Windows: GetLastError(), FormatMessageA() or perror() are used to get error text
 /// Linux: Just calls perror(text)
 /// </summary>
 /// <param name="text">The text placed at the start of the error printing</param>
-void UtilityFunctions::cperror(const char * text)
+/// <param name="use_perror">Does nothing on Linux. If True, use perror instead of GetLastError() on Windows</param>
+void UtilityFunctions::cperror(const char * text, const bool &use_perror)
 {
 #ifdef _WIN32
-	LPSTR message_buf = nullptr;
+	if (use_perror)
+	{
+		perror(text);
+	}
+	else
+	{
+		LPSTR message_buf = nullptr;
 
-	// The FORMAT_MESSAGE_ALLOCATE_BUFFER flag uses LocalAlloc to make the message_buf
-	// Which is why there is a LocalFree later to free the dynamic allocation
-	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&message_buf, 0, NULL);
+		// The FORMAT_MESSAGE_ALLOCATE_BUFFER flag uses LocalAlloc to make the message_buf
+		// Which is why there is a LocalFree later to free the dynamic allocation
+		size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&message_buf, 0, NULL);
 
-	std::string message(message_buf, size);
+		std::string message(message_buf, size);
 
-	LocalFree(message_buf);
+		LocalFree(message_buf);
 
-	std::cerr << text << ": " << message;
+		std::cerr << text << ": " << message;
+	}
 #endif //_WIN32
 #ifdef __linux
 	perror(text);
