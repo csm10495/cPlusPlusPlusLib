@@ -12,6 +12,7 @@
 #include <iostream>
 #include <limits>
 #include <string>
+#include <vector>
 
 #ifdef _WIN32
 #define NOMINMAX
@@ -33,6 +34,8 @@ public:
 	static bool getFreeSpaceInBytes(uint64_t &space, const std::string &path);
 
 	static void cperror(const char *text);
+
+	static std::vector<unsigned char> numericToBytes(const uint64_t &numeric);
 };
 
 #endif UtilityFunctions_H

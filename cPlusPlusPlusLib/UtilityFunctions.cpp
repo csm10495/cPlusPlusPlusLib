@@ -109,4 +109,23 @@ void UtilityFunctions::cperror(const char * text)
 #endif //__linux
 }
 
+/// <summary>
+/// Numerics of max 64 bits to a vector<uint8_t> of bytes
+/// </summary>
+/// <param name="numeric">The numeric as a uint64_t</param>
+/// <returns>vector<uint8_t> of bytes</returns>
+std::vector<uint8_t> UtilityFunctions::numericToBytes(const uint64_t &numeric)
+{
+	uint64_t myNumeric = numeric;
+	std::vector<unsigned char> bytes;
+
+	for (unsigned int i = 0; i < sizeof(myNumeric); i++)
+	{
+		bytes.push_back(myNumeric & 0xFF);
+		myNumeric = myNumeric >> 8;
+	}
+
+	return bytes;
+}
+
 #endif UtilityFunctions_CPP
