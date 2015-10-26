@@ -9,6 +9,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <string>
 #include <vector>
 
 /// <summary>
@@ -107,6 +108,28 @@ public:
 		}
 
 		return ret_vec;
+	}
+
+	/// <summary>
+	/// Prints the vector with given delimiters
+	/// </summary>
+	/// <param name="original_vec">The given std::vector<T></param>
+	/// <param name="delimiter">The given std::string delimiter to be used between all items. Defaults to "\n"</param>
+	/// <param name="final_delimiter">The given std::string final delimiter to be printed after all items in the std::vector. Defautls to "\n"</param>
+	template <typename T> static void printVector(const std::vector<T> &original_vec, const std::string &delimiter = "\n", const std::string &final_delimiter = "\n")
+	{
+		if (original_vec.empty())
+		{
+			std::cout << final_delimiter;
+		}
+		else
+		{
+			for (unsigned int i = 0; i < original_vec.size() - 1; i++)
+			{
+				std::cout << original_vec[i] << delimiter;
+			}
+			std::cout << original_vec.back() << final_delimiter;
+		}
 	}
 };
 
